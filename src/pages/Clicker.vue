@@ -40,6 +40,7 @@ export default {
                farm: {price: 1000, cps: 10, count: 0},
                factory: {price: 10000, cps: 100, count: 0},
                temple: {price: 100000, cps: 1000, count: 0},
+               antimatter: {price: 1000000, cps: 10000, count: 0},
             }
         }
     },
