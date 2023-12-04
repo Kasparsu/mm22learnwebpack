@@ -1,4 +1,5 @@
 import './style.scss';
+import 'animate.css';
 
 import * as bootstrap from 'bootstrap';
 import { createApp } from 'vue';
