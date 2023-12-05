@@ -11,7 +11,7 @@ import Dotenv from 'dotenv-webpack';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export default {
+const webpackConfig = {
     entry: './src/index.js',
     output: {
         filename: 'main.js',
@@ -51,7 +51,11 @@ export default {
                 generator: {
                     filename: '[name][ext]'
                 }
-            }
+            },
+            {
+                test: /\.mp3$/,
+                type: 'asset/resource',
+            },
         ]
     },
     plugins: [
@@ -69,4 +73,11 @@ export default {
         new VueLoaderPlugin(),
         new Dotenv()
     ],
+    resolve: {
+        alias: {
+            '@': path.resolve(__dirname, 'src'),
+        },
+    },
 }
+
+export default webpackConfig;
