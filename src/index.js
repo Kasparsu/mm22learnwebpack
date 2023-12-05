@@ -1,4 +1,7 @@
 import './style.scss';
+import 'animate.css';
+
+
 
 import * as bootstrap from 'bootstrap';
 import { createApp } from 'vue';
@@ -29,3 +32,11 @@ const router = VueRouter.createRouter({
 const app = createApp(App);
 app.use(router);
 app.mount('#app');
+
+module.exports = {
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, 'src'),
+      },
+    },
+  };
