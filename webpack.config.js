@@ -51,6 +51,13 @@ export default {
                 generator: {
                     filename: '[name][ext]'
                 }
+            },
+            {
+                test: /\.mp3$/,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'audio/[name][ext]'
+                }
             }
         ]
     },
