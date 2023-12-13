@@ -1,4 +1,5 @@
 <template>
+
   <div class="row">
     <div class="col">
       <p class="text-center">Cookies {{ cookies }}</p>
