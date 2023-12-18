@@ -6,7 +6,7 @@ import fs from 'fs';
 import glob from 'glob';
 import { PurgeCSSPlugin } from 'purgecss-webpack-plugin';
 import { VueLoaderPlugin } from 'vue-loader';
-import Dotenv from 'dotenv-webpack';
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -15,8 +15,7 @@ export default {
     entry: './src/index.js',
     output: {
         filename: 'main.js',
-        path: path.resolve(__dirname, 'dist'),
-        clean: true,
+        path: path.resolve(__dirname, 'dist')
     },
     devServer: {
         static: {
@@ -46,11 +45,8 @@ export default {
                 loader: 'vue-loader'
             },
             {
-                test: /\.png/,
+                test: /\.(png|svg|jpg|jpeg|gif|ogg|mp3|wav)$/i,
                 type: 'asset/resource',
-                generator: {
-                    filename: '[name][ext]'
-                }
             }
         ]
     },
@@ -66,7 +62,6 @@ export default {
         // new PurgeCSSPlugin({
         //     paths: glob.sync(`src/views/**/*`, { nodir: true }),
         // }),
-        new VueLoaderPlugin(),
-        new Dotenv()
+        new VueLoaderPlugin()
     ],
 }
