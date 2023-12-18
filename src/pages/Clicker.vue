@@ -1,56 +1,87 @@
 <template>
   <div class="row">
     <div class="col">
-      <p class="text-center">Cookies {{ cookies }}</p>
-      <img src="https://pngimg.com/d/cookie_PNG13656.png" class="img-fluid" @click="cookies++">
+      <h1>GONG CLICKER</h1>
+      <audio id="audio" autoplay loop  controls :src="music"></audio>
+      <img src="https://cdn.dribbble.com/users/1226119/screenshots/6271830/____400300.gif" class="img-fluid" alt="">
     </div>
     <div class="col">
-      Column
+      <h3 class="text-center">Hits {{ cookies }}</h3>
+      <img src="https://www.thegongshop.com/cdn/shop/products/the-gong-shop-12-chinese-chau-gong-set-with-stand-and-mallet-cg12-p0561-28137294200906.png?v=1628019965" class="img-fluid" @click="cookies++">
     </div>
-    <div class="col">
-      <button v-for="(upgrade, name) in upgrades"
-        class="btn btn-outline-primary py-3"
+    <div class="col ">
+      <audio id="sfx"><source :src="music"></audio>
+      <button id="button" v-for="(upgrade, name) in upgrades"
+        onclick='playSound(null)'
+        class="btn btn-outline-primary py-3 mt-3"
         :disabled="cookies<upgrade.price"
         @click="buyUpgrade(upgrade)">
         Buy {{ name }} for 
-        {{ upgrade.price }} clicks ({{upgrade.cps}} clicks per second)
+        {{ upgrade.price }} hits ({{upgrade.cps}} hits per second)
         {{ upgrade.count }}
       </button>
+      <div id="sound"></div>
     </div>
   </div>
 </template>
 
+<style>
+body {
+  background-image: url("../assets/background.jpg");
+  background: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.row {
+  margin: 4em;
+}
+
+.btn {
+  padding: 1em;
+  background-color: blanchedalmond;
+  color: black;
+  border: none;
+}
+
+</style>
+
 <script>
+import music from '../assets/music.mp3';
+import MusicPlayer from '../components/MusicPlayer.vue';
+
 export default {
-    created(){
-        setInterval(()=> {
-            for(const upgrade in this.upgrades){
-                this.cookies = (
-                    parseFloat(this.cookies) + this.upgrades[upgrade].cps * this.upgrades[upgrade].count
-                ).toFixed(1);
+    created() {
+        this.music = music;
+        setInterval(() => {
+            for (const upgrade in this.upgrades) {
+                this.cookies = (parseFloat(this.cookies) + this.upgrades[upgrade].cps * this.upgrades[upgrade].count).toFixed(1);
             }
         }, 1000);
     },
-    data(){
+    data() {
         return {
+            music:null,
             cookies: 0,
             upgrades: {
-               cursor: {price: 10, cps: 0.1, count: 0},
-               grandma: {price: 100, cps: 1, count: 0},
-               farm: {price: 1000, cps: 10, count: 0},
-               factory: {price: 10000, cps: 100, count: 0},
-               temple: {price: 100000, cps: 1000, count: 0},
+                mallet: { price: 10, cps: 0.1, count: 0 },
+                dancers: { price: 10, cps: 10, count: 0 },
+                titanium_mallet: { price: 100, cps: 100, count: 0 },
+                dragon: { price: 1000, cps: 1000, count: 0 },
+                temple: { price: 10000, cps: 10000, count: 0 },
             }
-        }
+        };
     },
     methods: {
-        buyUpgrade(upgrade){
-            if(this.cookies>=upgrade.price){
-                this.cookies-=upgrade.price;
-                upgrade.price += Math.ceil(upgrade.price*0.25)         
+        buyUpgrade(upgrade) {
+            if (this.cookies >= upgrade.price) {
+                this.cookies -= upgrade.price;
+                upgrade.price += Math.ceil(upgrade.price * 0.25);
                 upgrade.count++;
             }
         }
-    }
-}
+    },
+    components: { MusicPlayer }
+};
+
 </script>
